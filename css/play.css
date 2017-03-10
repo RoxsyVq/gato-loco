@@ -1,0 +1,15 @@
+
+#gato td{
+    border: 1px solid black;
+    font-size: 30px;
+    height: 1em;
+    padding: 1em;
+    width: 1em;
+}
+#gato table{
+   margin: 0 auto;
+    
+}
+.tabla{
+    text-align:  -webkit-center;
+}
