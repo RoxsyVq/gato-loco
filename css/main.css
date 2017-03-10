@@ -1,0 +1,30 @@
+section{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+  opacity: 0;
+}
+#hero{
+    opacity: 1;
+    display: table;
+}
+.visible{
+    opacity: 1;
+    display: table; 
+}
+
+.content{
+    display: table-cell;
+    vertical-align: middle;
+    
+}
+#hero h1{
+    margin-bottom: 120px;
+}
+header{
+    position: relative;
+    z-index: 100;
+}
