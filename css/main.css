@@ -1,3 +1,11 @@
+header .navbar-default{
+    background-color: transparent;
+    border-color: transparent;
+}
+header{
+    position: relative;
+    z-index: 100;
+}
 section{
     position: absolute;
     width: 100%;
@@ -5,12 +13,10 @@ section{
     top: 0;
     left: 0;
     display: none;
-  opacity: 0;
+    opacity: 0;
+    text-align: center;
 }
-#hero{
-    opacity: 1;
-    display: table;
-}
+
 .visible{
     opacity: 1;
     display: table; 
@@ -24,7 +30,20 @@ section{
 #hero h1{
     margin-bottom: 120px;
 }
-header{
-    position: relative;
-    z-index: 100;
+
+/************juego********************/
+
+#gato td{
+    border: 1px solid black;
+    font-size: 30px;
+    height: 1em;
+    padding: 1em;
+    width: 1em;
+}
+#gato table{
+   margin: 0 auto;
+    
+}
+.tabla{
+    text-align:  -webkit-center;
 }
