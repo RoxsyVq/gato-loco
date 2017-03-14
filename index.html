@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<meta charset="UTF-8">
-	<title>3 en raya</title>
+	<title>Gato loco</title>
 </head>
 <body>
 <header>
@@ -31,7 +31,7 @@
 	</nav>
 </header>
 
-<section id="hero" class="visible">
+<section id="hero" class="visible" >
 	<div class="content">
 		<div class="container">
 
@@ -42,23 +42,29 @@
 	</div>
 </section>
 
-<section id="nombres">
+<section id="nombres"   >
 	<div class="content">
 		<div class="container">
-			<p>Ingrese el nombre del jugador 1 <input class="form-control" type="text"></p>
-			<p>Ingrese el nombre del jugador 2 <input class="form-control" type="text"></p>
+		<form action="">
+			<p class="">Ingrese el nombre del jugador 1 <input class="" type="text" id="playera"></p>
+			<p class="">Ingrese el nombre del jugador 2 <input class="" type="text" id="playerb"></p>
 			<p class="text-center">
-				<button id="btn-nombres">Comenzar</button>
+			<div id="demo"></div>
+				<button id="btn-nombres" type="submit">Comenzar</button>
 			</p>
+         <ol>
+             
+         </ol>
+          </form>
 		</div>
 	</div>
 </section>
 
 
-<section id="juego">
+<section id="juego"  >
 	<div class="content tabla">
 		<div class="container">
-			<h1>Juego</h1>
+			<h1>Turno de <span id="jugador">Irene</span></h1>
 			<table id="gato" cellspacing="0" >
                  <tr>
                      <td id="p1" class="cat"></td>
@@ -76,15 +82,74 @@
                      <td id="p9" class="cat"></td>
                  </tr>
              </table>
+             <div class="movimientos text-right">
+                 <p>Movimientos <span id="playerA">Jhonatan</span><span> 0</span></p>
+                 <p>Movimientos <span id="playerB">Irene</span><span> 0</span></p>
+             </div>
+             <div class="historial">
+                 <div class="col-md-6 text-right" id="ganador">
+                 
+                 </div>
+                 <div class="col-md-6 text-left" id="mandarHistorial">
+                  <button id="btn-play">Mandar al Historial</button>
+                 </div>
+             </div>
 		</div>
 	</div>
 </section>
 
 
-<section id="historial">
+<section id="historial"  >
 	<div class="content">
 		<div class="container">
 			<h2>Historial</h2>
+			
+			
+        <br>
+           <div class="list-player">
+           
+            
+            </div> 
+            <a  id="btn-histo"  class="pull-right" >Comentarios</a>
+		</div>
+	</div>
+</section>
+
+
+<section id="comentario" >
+	<div class="content">
+		<div class="container">
+			<h2>Comentarios</h2>
+			<br>
+			<div class="col-md-8 col-md-offset-2">
+			<div id="listCommit" class="">
+                  
+            </div>
+            <div class="newcomentarios">
+              
+                <h3>Comentario</h3>
+                 <form action="" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Tu nombre: </label>
+                        <div class="col-sm-9">
+                              <input type="email" class="form-control" id="inputEmail3 name" placeholder="Nombre">
+                        </div>
+                    </div>
+                  <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Tu comentario: </label>
+                        <div class="col-sm-9">
+                                <textarea name="" id="commit" placeholder="Comentario" cols="60" type="email" rows="3">
+    
+                                </textarea>    
+                        </div>
+                  </div>
+               </form>     
+            </div>
+              <button type="button" id="btn-commit" class="btn btn-default">Enviar</button>
+              <h3 class="text-success">tu comentario fue enviado</h3>
+
+
+          </div>      
 		</div>
 	</div>
 </section>

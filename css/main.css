@@ -1,3 +1,5 @@
+
+
 header .navbar-default{
     background-color: transparent;
     border-color: transparent;
@@ -15,6 +17,11 @@ section{
     display: none;
     opacity: 0;
     text-align: center;
+}
+.movimientos{
+    position: absolute;
+    top: 350px;
+    right: 30px;
 }
 
 .visible{
@@ -46,4 +53,23 @@ section{
 }
 .tabla{
     text-align:  -webkit-center;
+}
+.historial{
+    margin-top: 40px;
+}
+/**********historial*******/
+.box{
+    border: 2px solid #ccc;
+}
+/*******************comentarios******/
+
+#listCommit .comentarios div{
+    border: 1px solid #ccc;
+    margin: 30px 10px;
+    text-align: left;
+    padding: 20px;
+}
+#listCommit .comentarios div p{
+    font-weight: bold;
+    
 }
