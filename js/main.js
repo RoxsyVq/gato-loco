@@ -156,12 +156,7 @@ function getSingleGame(_idGame)
 	});
 }
 
-
-
-
 //Enviar comentario
-
-
 function postComentario(_idGame,_name,_content)
         {
         $.ajax({
@@ -211,11 +206,11 @@ function ganador(letra){
     )
         {
             if(letra=="X"){
-               $('#ganador').append('<h3> Felicidades'+" "+ jugadorA +' Ganaste!!!</h3');
+               $('#ganador').append('<h3> Felicidades'+" "+ $('#playera').val() +' Ganaste!!!</h3');
             alert("juagador"+" "+letra + " "+"Gana"); 
             }
             else 
-                $('#ganador').append('<h3> Felicidades'+" "+ jugadorB +' Ganaste!!!</h3');
+                $('#ganador').append('<h3> Felicidades'+" "+ $('#playerb').val() +' Ganaste!!!</h3');
             alert("juagador"+" "+letra + " "+"Gana"); 
             }
     
@@ -247,7 +242,7 @@ function gato(evt)
             celda.style.background='red';
             arregloCat[marcado]='X';
             ganador("X");
-            $("#jugador").text(jugadorA);
+           $("#jugador").text($('#playera').val());
             x++;
             contx.html(x);
           
@@ -258,7 +253,7 @@ function gato(evt)
             celda.style.background='blue';
             arregloCat[marcado]="O";
             ganador("O");
-             $("#jugador").text(jugadorB);
+             $("#jugador").text($('#playerb').val());
             y++;
            conto.html(y); 
         }

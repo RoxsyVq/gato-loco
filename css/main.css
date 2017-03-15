@@ -21,7 +21,10 @@ section{
     background: url("http://jellydemos.com/wordpress/epic/wp-content/uploads/2014/09/01.jpg");
     font-family: monospace;
 }
-section button, div{
+section div{
+    color: white;
+}
+section button{
     color: black;
 }
 section input{
