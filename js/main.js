@@ -1,7 +1,7 @@
 $(document).ready(init);
 
 var currentSection=null;
-var currentGameID;
+var currentGameId;
  function init(){
    // llamarComentarios();
     //solicitudHistorial(); 
@@ -43,8 +43,10 @@ function onClickBtnItemJuego()
 }
 function onClickBtnComentar()
 {
-    
-	postComentario(currentGameID, $('#name').val(), $('#countx').val());
+    var name=$('#name');
+    var content=$('#commit');
+	postComentario(currentGameId, name.val(), content.val());
+    console.log(name.val());
     
 }
 function onclickNewGame()
