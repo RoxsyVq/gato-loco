@@ -17,6 +17,15 @@ section{
     display: none;
     opacity: 0;
     text-align: center;
+    color: aliceblue;
+    background: url("http://jellydemos.com/wordpress/epic/wp-content/uploads/2014/09/01.jpg");
+    font-family: monospace;
+}
+section button, div{
+    color: black;
+}
+section input{
+    color: black;
 }
 .movimientos{
     position: absolute;

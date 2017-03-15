@@ -3,24 +3,17 @@ $(document).ready(init);
 var currentSection=null;
 var currentGameId;
  function init(){
-   // llamarComentarios();
-    //solicitudHistorial(); 
-    currentSection=$('#hero'); 
+   ; 
+     currentSection=$('#hero'); 
      $('#btn-saludo').click(OnclickLogin);
-     
      $('#btn-nombres').click(onClickJuego);
      cargar();
-    
-     //$('#btn-play').click(onClickBtnHistorial);
-     
      $('#btn-historial').click(onClickBtnHistorial);
      $('#lista-juegos').on('click', 'button', onClickBtnItemJuego);
      $('#btn-play').click(onclickNewGame);
-     	
      $('#btn-commit').click(onClickBtnComentar);
 
-     
-//    tweenMax.to('btn_saludo',2, {opacity:0});
+ tweenMax.to('btn_saludo',2, {opacity:0});
  }
 
 function OnclickLogin(){
@@ -49,11 +42,16 @@ function onClickBtnComentar()
     console.log(name.val());
     
 }
+
+
 function onclickNewGame()
 {
-    
-	postGames($('#ganador').val(), $('#playerB').val(), $('#commit').val());
-    //onClickBtnHistorial();
+    gatoSection('historial');
+    var gan=$('#ganador').text();
+    var los=$('#countx').text();
+	postGames(gan,jugadorB, los);
+
+    console.log(gan,jugadorB, los);
 }
 
 function onClickBtnHistorial(evt){
@@ -62,24 +60,6 @@ function onClickBtnHistorial(evt){
 	getHistorial();
 }
 
-function getHistorial() {
-	$.ajax({
-		url: 'http://test-ta.herokuapp.com/games'
-	}).success(function (_data) {
-		dibujarHistorial(_data);
-	});
-}
-function dibujarHistorial(_datos) {
-	//console.log(_datos);
-	var lista = $('#lista-juegos');
-
-	for (var i in _datos) {
-		console.log(_datos[i].winner_player);
-
-		var html = '<li data-idgame="'+ _datos[i].id +'" class="list-group-item box">' + _datos[i].winner_player + ' le gano a <span id="losser">'+_datos[i].loser_player+'</span> en <span id="number">'+_datos[i].number_of_turns_to_win+'</span> movimientos <button class="btn pull-right" >Comentario</button></li>';
-		lista.append(html);
-	}
-}
 
 
 /***************************/
@@ -95,10 +75,11 @@ function onClickJuego()
     localStorage.setItem('jugadorA',playerA);
     localStorage.setItem('jugadorB',playerB);
     
+     llamarJugadores();
     
     gatoSection('juego'); 
    
-    llamarJugadores()
+   
     return false;
 }
 
@@ -116,6 +97,24 @@ function llamarJugadores(){
     var jugadorB=localStorage.getItem("jugadorB");
     $('#playerA').text(jugadorA);
     $('#playerB').text(jugadorB);
+}
+function getHistorial() {
+	$.ajax({
+		url: 'http://test-ta.herokuapp.com/games'
+	}).success(function (_data) {
+		dibujarHistorial(_data);
+	});
+}
+function dibujarHistorial(_datos) {
+	//console.log(_datos);
+	var lista = $('#lista-juegos');
+
+	for (var i in _datos) {
+		console.log(_datos[i].winner_player);
+
+		var html = '<li data-idgame="'+ _datos[i].id +'" class="list-group-item box">' + _datos[i].winner_player + ' le gano a <span id="losser">'+_datos[i].loser_player+'</span> en <span id="number">'+_datos[i].number_of_turns_to_win+'</span> movimientos <button class="btn pull-right" >Comentario</button></li>';
+		lista.append(html);
+	}
 }
 
 function getComentarios(_idGame)
@@ -156,69 +155,11 @@ function getSingleGame(_idGame)
 		console.log(_data);
 	});
 }
-/* llamar comentarios
-function llamarComentarios(){
-        $.ajax({
-        type : 'GET',
-        url : 'http://test-ta.herokuapp.com/games/1/comments',
-        data : {tipo:'0'},
-        dataType : 'json',
-        success : function(data) {
-           console.log(JSON.stringify(data));
-           $.each(data, function(i,item) {
-            //console.log(item);
-                update(data);
-            });
-        },
-            
-    });
-    
-    function update(_info)
-    {
-      $('#listCommit').html('<div class="comentarios">'+
-                     '<h3>Comentarios</h3>'+
-                      '<div class="primercommit">'+
-                          '<h4><Span>'+_info[0].name+'</Span> dice:</h4>'+
-                          '<span>'+_info[0].content+'</span>'+
-                      '</div>'+
-                     '<div class="secondcommit">'+
-                          '<h4><span>'+_info[1].name+'</span>  dice:</h4>'+
-                          '<span>'+_info[1].content+'</span>'+
-                      '</div>'+
-                  '</div>');
-}
-}*/
-// jalar historial
 
-function solicitudHistorial()
-        {
-          $.ajax({
-        type : 'GET',
-        url : 'http://test-ta.herokuapp.com/games',
-        data : {tipo:'0'},
-        dataType : 'json',
-        success : function(data) {
-           console.log(JSON.stringify(data));
-           $.each(data, function(i,item) {
-           console.log(item);
-                update(data);
-            });
-        },
-            
-    });
-    
-function update(_info)
-        {
-    
-            $('.list-player').html('<div class="box">'+
-                          
-                    '<h4> <span id="winner">'+_info[i].winner_player+'</span> le gano a <span id="losser">'+_info[i].loser_player+'</span> en <span id="number">'+_info[i].number_of_turns_to_win+'</span> movimientos</h4>'+
-                    '</div>') ;
-            //console.log(_info[3].winner_player);
-    
-            }
-        }
 
+
+
+//Enviar comentario
 
 
 function postComentario(_idGame,_name,_content)
@@ -234,6 +175,7 @@ function postComentario(_idGame,_name,_content)
     
 }
 
+//crear nuevo juego
 function postGames(_winner, _loser, _number)
 {
   
@@ -245,38 +187,6 @@ function postGames(_winner, _loser, _number)
 		console.log(_data);
 	});
 }
-
-/*
-//enviar jugadores
-function envio()
-        {
-        
-          $.ajax({
-          type:'POST',    
-          url:'http://test-ta.herokuapp.com/games', 
-          data:{ 
-                'id': "78",
-                'winner_player': $('#playera').val(),
-                'loser_player': $('#playerb').val()}
-        }).success(function(_data){
-              $.each(_data,function(i,item){
-                  //console.log(item);
-                  update(_data);
-              })
-            
-             
-          });
-        }
-    
-
-function update(_info){
-   //console.log(_info[78].winner_player);
-    //$('#playerb').html(_info.loser_player);
-    
-}
-*/
-
-
 
 
 // funcionalidad de juego 
@@ -301,16 +211,17 @@ function ganador(letra){
     )
         {
             if(letra=="X"){
-               $('#ganador').append('<h3> Gano'+" "+ jugadorA +'</h3');
+               $('#ganador').append('<h3> Felicidades'+" "+ jugadorA +' Ganaste!!!</h3');
             alert("juagador"+" "+letra + " "+"Gana"); 
             }
-            else{
-                $('#ganador').append('<h3> Gana'+" "+ jugadorB +'</h3');
+            else 
+                $('#ganador').append('<h3> Felicidades'+" "+ jugadorB +' Ganaste!!!</h3');
             alert("juagador"+" "+letra + " "+"Gana"); 
             }
+    
             
           
-        }
+        
 }
     var contx=$("#countx");
     var conto=$("#county");
