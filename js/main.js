@@ -1,18 +1,21 @@
 $(document).ready(init);
 
 var currentSection=null;
-
+var currentGameID;
  function init(){
-    llamarComentarios();
-    solicitudHistorial(); 
+   // llamarComentarios();
+    //solicitudHistorial(); 
     currentSection=$('#hero'); 
      $('#btn-saludo').click(OnclickLogin);
      
      $('#btn-nombres').click(onClickJuego);
      cargar();
      llamarJugadores()
-     $('#btn-play').click(onClickHistorial);
-     $('#btn-histo').click(onClickCommit);
+     $('#btn-play').click(onClickBtnHistorial);
+     $('#btn-vercommit').click(onClickCommit);
+     $('#btn-historial').click(onClickBtnHistorial);
+     $('#btn-vercommit').on('click', 'button', onClickBtnItemJuego);
+     
 //    tweenMax.to('btn_saludo',2, {opacity:0});
  }
 
@@ -22,21 +25,56 @@ function OnclickLogin(){
    
     
 }
+
+function onClickBtnItemJuego(evt)
+{   evt.preventDefault;
+	var idGame = $(this).parent().data('idgame');
+	console.log(idGame);
+    gatoSection('comentario');
+    getCommentarios(idGame);
+    currentGameId=idGame;
+	//getSingleGame(idGame);
+}
+
+function onClickBtnHistorial(evt){
+    evt.preventDefault();
+	gatoSection('historial');
+	getHistorial();
+}
+
+function getHistorial() {
+	$.ajax({
+		url: 'http://test-ta.herokuapp.com/games'
+	}).success(function (_data) {
+		dibujarHistorial(_data);
+	});
+}
+function dibujarHistorial(_datos) {
+	//console.log(_datos);
+	var lista = $('#lista-juegos');
+
+	for (var i in _datos) {
+		console.log(_datos[i].winner_player);
+
+		var html = '<li data-idgame="'+ _datos[i].id +'" class="list-group-item box">' + _datos[i].winner_player + ' le gano a <span id="losser">'+_datos[i].loser_player+'</span> en <span id="number">'+_datos[i].number_of_turns_to_win+'</span> movimientos <button class="btn pull-right" id="btn-vercommit">Comentario</button></li>';
+		lista.append(html);
+	}
+}
+
+
+/***************************/
 function onClickHistorial(){
     gatoSection('historial');
-    
-    
 }
-function onClickJuego(){
+
+function onClickJuego()
+{
     
-     
-     var playerA =$('#playera').val();
+    var playerA =$('#playera').val();
     var playerB=$('#playerb').val();
     localStorage.setItem('jugadorA',playerA);
     localStorage.setItem('jugadorB',playerB);
-    
-    
-     gatoSection('juego');  
+    gatoSection('juego');  
  return false;
     
 }
@@ -44,7 +82,6 @@ function onClickCommit(evt){
     evt.preventDefault;
     gatoSection('comentario'); 
     llamarComentarios();
-
 }
 
 
@@ -54,6 +91,7 @@ function gatoSection(_id){
     nexSection.addClass('visible');
     currentSection=nexSection;
 }
+
 function llamarJugadores(){
     var jugadorA=localStorage.getItem("jugadorA");
     var jugadorB=localStorage.getItem("jugadorB");
@@ -61,15 +99,28 @@ function llamarJugadores(){
     $('#playerB').text(jugadorB);
 }
 
+function getComentarios(_idGame)
+{
+	$.ajax({
+		url: 'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
+		type:'GET'
+	}).success(function(_data){
+		console.log(_data);
+		dibujarComentarios(_data);
+	});
+}
 
-
-
-
-
-
-// llamar comentarios
-
-
+function dibujarComentarios(_datos)
+{
+	var lista = $('#lista-comentarios');
+	lista.empty();
+	for(var i in _datos)
+	{
+		var html = '<li class="list-group-item">'+_datos[i].name+' dice: <p>'+ _datos[i].content +'</p></li>';
+		lista.append(html);
+	}
+}
+/* llamar comentarios
 function llamarComentarios(){
         $.ajax({
         type : 'GET',
@@ -100,10 +151,9 @@ function llamarComentarios(){
                       '</div>'+
                   '</div>');
 }
-}
+}*/
 // jalar historial
 
- 
 function solicitudHistorial()
         {
           $.ajax({
@@ -114,52 +164,45 @@ function solicitudHistorial()
         success : function(data) {
            console.log(JSON.stringify(data));
            $.each(data, function(i,item) {
-           // console.log(item);
+           console.log(item);
                 update(data);
             });
         },
             
     });
     
-
-function update(_info){
+function update(_info)
+        {
     
-   $('.list-player').html('<div class="box">'+
+            $('.list-player').html('<div class="box">'+
                           
-                '<h4> <span id="winner">'+_info[i].winner_player+'</span> le gano a <span id="losser">'+_info[i].loser_player+'</span> en <span id="number">'+_info[i].number_of_turns_to_win+'</span> movimientos</h4>'+
-                
-               
-              '</div>') ;
-   //console.log(_info[3].winner_player);
+                    '<h4> <span id="winner">'+_info[i].winner_player+'</span> le gano a <span id="losser">'+_info[i].loser_player+'</span> en <span id="number">'+_info[i].number_of_turns_to_win+'</span> movimientos</h4>'+
+                    '</div>') ;
+            //console.log(_info[3].winner_player);
     
             }
-}
-function postComentario()
-        {
-        
-          $.ajax({
-          type:'POST',    
-          url:'http://test-ta.herokuapp.com/games/1/comments', 
-          data:{ 
-                'id': "3",
-                'name': $('#name').val(),
-                'content': $('#commit').val()}
-        }).success(function(_data){
-              $.each(_data,function(i,item){
-                  //console.log(item);
-                  update(_data);
-              })
-            
-             
-          });
         }
-    
 
-function update(_info){
-   //console.log(_info[78].winner_player);
-    //$('#playerb').html(_info.loser_player);
-    
 
+$('#btn-commit').click(postComentario);
+function postComentario(_idGame,_name,_content)
+        {
+        $.ajax({
+        type : 'POST',
+        url : 'http://test-ta.herokuapp.com/games/'+ _idGame +'/comments',
+        data : {
+                 'comment': {
+                    'name': _name,
+                    'content': _content,
+                    'game_id': _idGame
+                }}
+       
+            
+    }).success(function(_data){
+           console.log(_data) 
+        });
+    
+    
 }
 
 /*
@@ -216,32 +259,33 @@ function ganador(letra){
 
     )
         {
-            $('#ganador').append('<h3> Gano'+''+letra+'</h3');
-            alert("juagador"+" "+letra + " "+"Gana");
+            if(letra=="X"){
+               $('#ganador').append('<h3> Gano'+" "+ jugadorA +'</h3');
+            alert("juagador"+" "+letra + " "+"Gana"); 
+            }
+            else{
+                $('#ganador').append('<h3> Gana'+" "+ jugadorB +'</h3');
+            alert("juagador"+" "+letra + " "+"Gana"); 
+            }
+            
           
         }
 }
- function setMessage(msg){
-            document.getElementById("jugador").innerText = msg;
-        }
-        function switchTurn(){
-            if(ganador(document.turn)){
-                setMessage("Felicitaciones , << " + document.turn + " >> fue el ganador!");
-                document.patty = document.turn;
-            }else if (document.turn == "X") {
-                document.turn = "O";
-                setMessage("Es el turno de << " + document.turn +" >>");
-            } else {
-                document.turn = "X";
-                setMessage("Es el turno de << " + document.turn +" >>" );
-            }            
-        }
+    var contx=$("#countx");
+    var conto=$("#county");
+    var jugadorA=localStorage.getItem("jugadorA");
+    var jugadorB=localStorage.getItem("jugadorB");
+    var x=0;
+    var y=0;
+
 function gato(evt)
 {
 //    alert(evt.target.id);
+    var suma;
     var idCelda=evt.target.id;
     var celda=evt.target;
     var marcado=idCelda[1]-1;
+    
 //    alert(marcado);
     qturno=turno%2;
     if(qturno!=0)
@@ -251,6 +295,9 @@ function gato(evt)
             celda.style.background='red';
             arregloCat[marcado]='X';
             ganador("X");
+            $("#jugador").text(jugadorA);
+            x++;
+            contx.html(x);
           
         }
     else if(qturno==0)
@@ -259,6 +306,9 @@ function gato(evt)
             celda.style.background='blue';
             arregloCat[marcado]="O";
             ganador("O");
+             $("#jugador").text(jugadorB);
+            y++;
+           conto.html(y); 
         }
 
     if(turno==9)

@@ -24,7 +24,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Inicio</a></li>
-					<li><a href="#">Historial</a></li>
+					<li><a href="#" id="btn-historial">Historial</a></li>
 				</ul>
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 </section>
 
 
-<section id="juego"  >
+<section id="juego"   >
 	<div class="content tabla">
 		<div class="container">
 			<h1>Turno de <span id="jugador">Irene</span></h1>
@@ -83,8 +83,8 @@
                  </tr>
              </table>
              <div class="movimientos text-right">
-                 <p>Movimientos <span id="playerA">Jhonatan</span><span> 0</span></p>
-                 <p>Movimientos <span id="playerB">Irene</span><span> 0</span></p>
+                 <p>Movimientos <span id="playerA">Jhonatan</span><span id="countx"> 0</span></p>
+                 <p>Movimientos <span id="playerB">Irene</span ><span id="county"> 0</span></p>
              </div>
              <div class="historial">
                  <div class="col-md-6 text-right" id="ganador">
@@ -99,7 +99,7 @@
 </section>
 
 
-<section id="historial"  >
+<section id="historial" >
 	<div class="content">
 		<div class="container">
 			<h2>Historial</h2>
@@ -107,8 +107,11 @@
 			
         <br>
            <div class="list-player">
-           
+               <div class="col-md-8 col-md-offset-2">
+                <ul class="list-group" id="lista-juegos"></ul>
+
             
+            </div>
             </div> 
             <a  id="btn-histo"  class="pull-right" >Comentarios</a>
 		</div>
@@ -116,18 +119,21 @@
 </section>
 
 
-<section id="comentario" >
+<section id="comentario"  >
 	<div class="content">
 		<div class="container">
 			<h2>Comentarios</h2>
 			<br>
 			<div class="col-md-8 col-md-offset-2">
 			<div id="listCommit" class="">
+                <ul class="list-group" id="lista-comentarios"></ul>
+
                   
             </div>
             <div class="newcomentarios">
               
                 <h3>Comentario</h3>
+
                  <form action="" class="form-horizontal">
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Tu nombre: </label>
@@ -143,7 +149,10 @@
                                 </textarea>    
                         </div>
                   </div>
-               </form>     
+               </form>
+               <div class="lateral">
+                   
+               </div>     
             </div>
               <button type="button" id="btn-commit" class="btn btn-default">Enviar</button>
               <h3 class="text-success">tu comentario fue enviado</h3>
