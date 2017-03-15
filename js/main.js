@@ -177,7 +177,7 @@ function postGames(_winner, _loser, _number)
 	$.ajax({
 		url:'http://test-ta.herokuapp.com/games',
 		type:'POST',
-		data:{comment:{ winner_player:_winner, loser_player:_loser, number_of_turns_to_win:_number }}
+		data:{game:{ winner_player:_winner, loser_player:_loser, number_of_turns_to_win:_number }}
 	}).success(function(_data){
 		console.log(_data);
 	});
@@ -206,11 +206,11 @@ function ganador(letra){
     )
         {
             if(letra=="X"){
-               $('#ganador').append('<h3> Felicidades'+" "+ $('#playera').val() +' Ganaste!!!</h3');
+               $('#ganador').append('<h3>'+ $('#playera').val() +' </h3');
             alert("juagador"+" "+letra + " "+"Gana"); 
             }
             else 
-                $('#ganador').append('<h3> Felicidades'+" "+ $('#playerb').val() +' Ganaste!!!</h3');
+                $('#ganador').append('<h3> '+ $('#playerb').val() +' </h3');
             alert("juagador"+" "+letra + " "+"Gana"); 
             }
     
