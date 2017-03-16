@@ -1,8 +1,9 @@
 
 
 header .navbar-default{
-    background-color: transparent;
+    background-color:#ccc;
     border-color: transparent;
+    color:aliceblue;
 }
 header{
     position: relative;
@@ -18,11 +19,46 @@ section{
     opacity: 0;
     text-align: center;
     color: aliceblue;
-    background: url("http://jellydemos.com/wordpress/epic/wp-content/uploads/2014/09/01.jpg");
+    
     font-family: monospace;
 }
 section div{
     color: white;
+}
+#hero{
+   background:100%  url("../img/catgod_800x600.gif");
+    background-size: cover; 
+}
+#nombres{
+    background:  url("../img/cat.gif");
+    background-size: cover; 
+    width: 100%;
+}
+#juego{
+    background:  url("../img/fuegos.gif");
+    background-size: cover; 
+    width: 100%;
+    
+}
+#historial{
+    background:  url("../img/historial.gif");
+    background-size: cover; 
+    width: 100%;  
+}
+#historial li {
+    background-color: transparent;
+}
+#juego h1,span , p    {
+   color:black; 
+}
+#comentario{
+    background:  url("../img/pc-gato.gif");
+    background-size: cover; 
+    width: 100%;
+   
+}
+#comentario label, h3, h2{
+    color: black;
 }
 section button{
     color: black;
