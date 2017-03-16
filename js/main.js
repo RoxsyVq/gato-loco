@@ -34,6 +34,7 @@ function onClickBtnItemJuego()
     currentGameId=idGame;
 	getSingleGame(idGame);
 }
+// invoca a la funcion de comentar
 function onClickBtnComentar()
 {
     var name=$('#name');
@@ -43,15 +44,15 @@ function onClickBtnComentar()
     
 }
 
-
+// llama al nuevo juego
 function onclickNewGame()
 {
     gatoSection('historial');
     var gan=$('#ganador').text();
     var los=$('#countx').text();
 	postGames(gan,jugadorB, los);
-
-    console.log(gan,jugadorB, los);
+   getHistorial();
+    //console.log(gan,jugadorB, los);
 }
 
 function onClickBtnHistorial(evt){
@@ -84,7 +85,7 @@ function onClickJuego()
 }
 
 
-
+// cambio de funciones *** trasparencia****
 function gatoSection(_id){
     currentSection.removeClass('visible');
     var nexSection=$('#'+_id);
@@ -100,11 +101,12 @@ function llamarJugadores(){
 }
 function getHistorial() {
 	$.ajax({
-		url: 'http://test-ta.herokuapp.com/games'
+		url: 'https://test-ta.herokuapp.com/games'
 	}).success(function (_data) {
 		dibujarHistorial(_data);
 	});
 }
+//donde se muestra el historial en el html
 function dibujarHistorial(_datos) {
 	//console.log(_datos);
 	var lista = $('#lista-juegos');
@@ -116,18 +118,18 @@ function dibujarHistorial(_datos) {
 		lista.append(html);
 	}
 }
-
+// llamar   comntarios
 function getComentarios(_idGame)
 {
 	$.ajax({
-		url: 'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
+		url: 'https://test-ta.herokuapp.com/games/'+_idGame+'/comments',
 		type:'GET'
 	}).success(function(_data){
 		console.log(_data);
 		dibujarComentarios(_data);
 	});
 }
-
+// donde se mustra en html
 function dibujarComentarios(_datos)
 {
 	var lista = $('#lista-comentarios');
@@ -145,11 +147,11 @@ function dibujarComentarios(_datos)
 	}
 }
 
-
+//llama los id de los juegos
 function getSingleGame(_idGame)
 {
 	$.ajax({
-		url: 'http://test-ta.herokuapp.com/games/' + _idGame,
+		url: 'https://test-ta.herokuapp.com/games/' + _idGame,
 		type:'GET'
 	}).success(function(_data){
 		console.log(_data);
@@ -160,7 +162,7 @@ function getSingleGame(_idGame)
 function postComentario(_idGame,_name,_content)
         {
         $.ajax({
-		url:'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
+		url:'https://test-ta.herokuapp.com/games/'+_idGame+'/comments',
 		type:'POST',
 		data:{comment:{ name:_name, content:_content, game_id:_idGame }}
 	}).success(function(_data){
@@ -175,7 +177,7 @@ function postGames(_winner, _loser, _number)
 {
   
 	$.ajax({
-		url:'http://test-ta.herokuapp.com/games',
+		url:'https://test-ta.herokuapp.com/games',
 		type:'POST',
 		data:{game:{ winner_player:_winner, loser_player:_loser, number_of_turns_to_win:_number }}
 	}).success(function(_data){
@@ -190,7 +192,7 @@ var turno=1;
 var qturno;
 var arregloCat=new Array(9);
 var celdas=document.getElementsByClassName('cat');
-
+// comparamoslas 9 casillas
 function ganador(letra){
     if(
         
@@ -279,6 +281,5 @@ function cargar(){
     } 
     
     }
-
 
 
